@@ -26,7 +26,7 @@ public :
         x{static_cast<T>(v.x)},
         y{static_cast<T>(v.y)} {}
 
-    virtual~Vect2<T>(){}
+    ~Vect2<T>(){}
 
     // Methodes arithmetiques
     Vect2<T>& operator+=(const Vect2<T> v){
@@ -62,48 +62,41 @@ public :
 };
 
 template <class T>
-Vect2<T> operator-(const Vect2<T> u) {
-    Vect2<T> t(u);
-    t.x = -t.x; t.y = -t.y;
-    return t;
+Vect2<T> operator-(Vect2<T> u) {
+    u.x = -u.x; u.y = -u.y;
+    return u;
 }
 template <class T>
-Vect2<T> operator+(const Vect2<T> u, const Vect2<T> v) {
-    Vect2<T> t(u);
-    return t += v;
+Vect2<T> operator+(Vect2<T> u, const Vect2<T> &v) {
+    return u += v;
 }
 template <class T>
-Vect2<T> operator-(const Vect2<T> u, const Vect2<T> v) {
-    Vect2<T> t(u);
-    return t -= v;
+Vect2<T> operator-(Vect2<T> u, const Vect2<T> &v) {
+    return u -= v;
 }
 template <class T>
-Vect2<T> operator*(const Vect2<T> u, const T a) {
-    Vect2<T> t(u);
-    return t *= a;
+Vect2<T> operator*(Vect2<T> u, const T a) {
+    return u *= a;
 }
 template <class T>
-Vect2<T> operator*(const T a, const Vect2<T> u) {
-    Vect2<T> t(u);
-    return t *= a;
+Vect2<T> operator*(const T a, Vect2<T> u) {
+    return u *= a;
 }
 template <class T>
-Vect2<T> operator/(const Vect2<T> u, const T a) {
-    Vect2<T> t(u);
-    return t /= a;
+Vect2<T> operator/(Vect2<T> u, const T a) {
+    return u /= a;
 }
 template <class T>
-T operator*(const Vect2<T> u, const Vect2<T> v) {
+T operator*(const Vect2<T> &u, const Vect2<T> &v) {
     return u.x * v.x + u.y * v.y;
 }
 template <class T>
-T distance2(const Vect2<T> u, const Vect2<T> v) {
-    Vect2<T> t(v-u);
-    return t.norme2();
+T distance2(Vect2<T> u, const Vect2<T> &v) {
+    return (u -= v).norme2();
 }
 
 template <class T>
-std::ostream& operator<<(std::ostream& os, Vect2<T> u) {
+std::ostream& operator<<(std::ostream& os, const Vect2<T> &u) {
     os << '(' << u.x << ',' << ' ' << u.y << ')';
     return os;
 }

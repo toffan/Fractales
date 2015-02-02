@@ -11,11 +11,15 @@ const std::string WINDOW_TITLE = "Fractale de Julia";
 const std::size_t NB_COLORS = 256;
 
 int main(int argc, char** argv) {
-    CLO clo(argc, argv);
+    try{
+        CLO clo(argc, argv);
+    }catch(std::exception &e){
+        std::cerr << e.what() << std::endl;
+    }
 
     // Définitions les couleurs
     std::vector<sf::Color> colors_table(NB_COLORS);
-    for(std::size_t i{0}; i<colors_table.size(); ++i){
+    for(std::size_t i{0}; i<colors_table.size(); ++i) {
         colors_table[i].r = 0;
         colors_table[i].g = i;
         colors_table[i].b = i;
@@ -24,7 +28,7 @@ int main(int argc, char** argv) {
 
     // Ouverture de la fenêtre
     sf::RenderWindow window(
-            sf::VideoMode(clo.get_window_size().x, clo.get_window_size.y),
+            sf::VideoMode(clo.get_window_size().x, clo.get_window_size().y),
             WINDOW_TITLE);
 
     // Création de la texture

@@ -20,10 +20,9 @@ std::complex<calc_t> affixe_rel(
         Vect2<calc_t> pix_pos,
         Vect2<calc_t> win_pix_size,
         Vect2<calc_t> win_math_size) {
-    std::complex<calc_t> z(
+    return {
             (pix_pos.x - win_pix_size.x/2) * win_math_size.x / win_pix_size.x,
-            (win_pix_size.y/2 - pix_pos.y) * win_math_size.y / win_pix_size.y);
-    return z;
+            (win_pix_size.y/2 - pix_pos.y) * win_math_size.y / win_pix_size.y};
 }
 
 

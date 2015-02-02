@@ -7,7 +7,7 @@
 
 #include "vect2.h"
 
-typedef double calc_t;
+using calc_t = double;
 
 std::size_t algo_color(
         std::complex<calc_t> z,
