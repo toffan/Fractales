@@ -1,22 +1,18 @@
-#include <iostream>
-#include <array>
-#include <stdexcept>
+#include <vector> //std:vector
 
-#include <SFML/Graphics.hpp>
-#include <SFML/Window.hpp>
+#include <SFML/Graphics.hpp> //sf::Image, sf::Texture
+#include <SFML/Window.hpp> //sf::RenderWindow, sf::VideoMode
 
 #include "maths.h"
+#include "clo.h"
 #include "window.h"
 
-#define WINDOW_TITLE "Fractale de Julia"
-#define WINDOW_WIDTH 1280
-#define WINDOW_HEIGHT 720
-#define TEXTURE_WIDTH 4000
-#define TEXTURE_HEIGHT 4000
-#define NB_COLORS 256
+const std::string WINDOW_TITLE = "Fractale de Julia";
+const std::size_t NB_COLORS = 256;
 
-int main()
-{
+int main(int argc, char** argv) {
+    CLO clo(argc, argv);
+
     // Définitions les couleurs
     std::vector<sf::Color> colors_table(NB_COLORS);
     for(std::size_t i{0}; i<colors_table.size(); ++i){
@@ -24,33 +20,34 @@ int main()
         colors_table[i].g = i;
         colors_table[i].b = i;
         colors_table[i].a = 255;
-    } 
+    }
 
     // Ouverture de la fenêtre
     sf::RenderWindow window(
-            sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT),
+            sf::VideoMode(clo.get_window_size().x, clo.get_window_size.y),
             WINDOW_TITLE);
 
     // Création de la texture
     sf::Texture texture;
-    /*
-    if(!texture.create(TEXTURE_WIDTH, TEXTURE_HEIGHT)){
-        throw std::runtime_error("Impossible de créer la texture");
-    }//*/
 
     // Création de l'image
     sf::Image fractal;
-    fractal.create(TEXTURE_WIDTH, TEXTURE_HEIGHT, colors_table[0]);
+    fractal.create(
+            clo.get_texture_size().x,
+            clo.get_texture_size().y,
+            colors_table[0]);
 
-    generate_fractal(fractal, colors_table);
+    generate_fractal(fractal, colors_table, clo.get_julia_cst());
+
+    #ifndef DNDEBUG
     fractal.saveToFile("debug.png");
-    
+    #endif
+
     // Chargement de la texture
     texture.loadFromImage(fractal);
 
     // Gestion de la fenêtre
     manage_window(window, texture);
-
 
     return EXIT_SUCCESS;
 }
