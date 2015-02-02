@@ -16,8 +16,8 @@ int main(int argc, char** argv) {
         std::vector<sf::Color> colors_table(NB_COLORS);
         for(std::size_t i{0}; i<colors_table.size(); ++i) {
             colors_table[i].r = 0;
-            colors_table[i].g = 255-i;
-            colors_table[i].b = 255-i;
+            colors_table[i].g = i;
+            colors_table[i].b = i;
             colors_table[i].a = 255;
         }
 
