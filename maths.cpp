@@ -32,8 +32,8 @@ void generate_fractal(
         const std::complex<calc_t> julia_cst) {
     std::complex<calc_t> affixe;
     std::size_t color;
-    for(std::size_t j(0) ; j!=fractal.getSize().y ; ++j){
-        for(std::size_t i(0) ; i!=fractal.getSize().x ; ++i){
+    for(std::size_t i(0) ; i!=fractal.getSize().x ; ++i){
+        for(std::size_t j(0) ; j!=fractal.getSize().y ; ++j){
             affixe = affixe_rel(
                     sf::Vector2<calc_t>(i,j),
                     sf::Vector2<calc_t>(fractal.getSize()),
