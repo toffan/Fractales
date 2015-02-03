@@ -64,14 +64,17 @@ protected:
 
     template <class T>
     static sf::Vector2<T> str_to_vect(const std::string &pair) {
-        std::size_t delim{pair.find_first_of(",;")};
-        std::stringstream xss, yss;
-        xss.str(pair.substr(0, delim));
-        yss.str(pair.substr(delim + 1));
-
         sf::Vector2<T> result;
-        xss >> result.x;
-        yss >> result.y;
+        std::size_t delim{pair.find_first_of(",;")};
+        std::stringstream ss;
+        
+        ss.str(pair.substr(0, delim));
+        ss >> result.x;
+
+        ss.clear();
+        ss.str(pair.substr(delim + 1));
+        ss >> result.y;
+
         return result;
     }
 };
