@@ -1,13 +1,6 @@
 #include "clo.hpp"
 
-const std::uint32_t CLO::JULIA_CST{1};
-const std::uint32_t CLO::WINDOW_SIZE{2};
-const std::uint32_t CLO::TEXTURE_SIZE{4};
-const std::uint32_t CLO::PLAN_SIZE{8};
-const std::uint32_t CLO::PLAN_CENTER{16};
-const std::uint32_t CLO::HELP{32};
 
-const std::complex<calc_t> CLO::JULIA_CST_DEF{-0.8, 0.2};
 const Vect2<std::size_t> CLO::WINDOW_SIZE_DEF{1280, 720};
 const Vect2<std::size_t> CLO::TEXTURE_SIZE_DEF{2560, 1440};
 const Vect2<calc_t> CLO::PLAN_SIZE_DEF{2.4, 2.4};

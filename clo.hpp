@@ -38,14 +38,15 @@ public :
         return _plan_center;
     }
 
-    static const std::uint32_t JULIA_CST;
-    static const std::uint32_t WINDOW_SIZE;
-    static const std::uint32_t TEXTURE_SIZE;
-    static const std::uint32_t PLAN_SIZE;
-    static const std::uint32_t PLAN_CENTER;
-    static const std::uint32_t HELP;
+    static constexpr std::uint32_t JULIA_CST{1};
+    static constexpr std::uint32_t WINDOW_SIZE{2};
+    static constexpr std::uint32_t TEXTURE_SIZE{4};
+    static constexpr std::uint32_t PLAN_SIZE{8};
+    static constexpr std::uint32_t PLAN_CENTER{16};
+    static constexpr std::uint32_t HELP{32};
 
-    static const std::complex<calc_t> JULIA_CST_DEF;
+    static constexpr std::complex<calc_t> JULIA_CST_DEF{-0.8, 0.2};
+
     static const Vect2<std::size_t> WINDOW_SIZE_DEF;
     static const Vect2<std::size_t> TEXTURE_SIZE_DEF;
     static const Vect2<calc_t> PLAN_SIZE_DEF;
