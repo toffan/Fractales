@@ -3,10 +3,10 @@
 #include "clo.hpp"
 
 
-const Vect2<std::size_t> CLO::WINDOW_SIZE_DEF{1280, 720};
-const Vect2<std::size_t> CLO::TEXTURE_SIZE_DEF{2560, 1440};
-const Vect2<calc_t> CLO::PLAN_SIZE_DEF{2.4, 2.4};
-const Vect2<calc_t> CLO::PLAN_CENTER_DEF{0, 0};
+const sf::Vector2<std::size_t> CLO::WINDOW_SIZE_DEF{1280, 720};
+const sf::Vector2<std::size_t> CLO::TEXTURE_SIZE_DEF{2560, 1440};
+const sf::Vector2<calc_t> CLO::PLAN_SIZE_DEF{2.4, 2.4};
+const sf::Vector2<calc_t> CLO::PLAN_CENTER_DEF{0, 0};
 
 CLO::CLO(int argc, char **argv):
     _options{0},
@@ -27,7 +27,7 @@ CLO::CLO(int argc, char **argv):
                         "Error CLO: option -c found more than once.");
             }
             else if(i+1 < argc) {
-                Vect2<calc_t> c(str_to_vect<calc_t>(std::string(argv[++i])));
+                sf::Vector2<calc_t> c(str_to_vect<calc_t>(std::string(argv[++i])));
                 _julia_cst.real(c.x);
                 _julia_cst.imag(c.y);
             }

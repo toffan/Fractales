@@ -3,9 +3,8 @@
 
 #include <complex> //std::complex
 
-#include <SFML/Graphics.hpp> //sf::Image
-
-#include "vect2.hpp"
+#include <SFML/Graphics/Image.hpp> //sf::Image
+#include <SFML/System/Vector2.hpp> //sf::Vector2
 
 using calc_t = double;
 
@@ -15,9 +14,9 @@ std::size_t algo_color(
         std::size_t color_max);
 
 std::complex<calc_t> affixe_rel(
-        Vect2<calc_t> pix_pos,
-        Vect2<calc_t> win_pix_size,
-        Vect2<calc_t> win_math_size);
+        sf::Vector2<calc_t> pix_pos,
+        sf::Vector2<calc_t> win_pix_size,
+        sf::Vector2<calc_t> win_math_size);
 
 void generate_fractal(
         sf::Image &fractal,

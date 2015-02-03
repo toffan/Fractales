@@ -4,7 +4,7 @@ void manage_window(sf::RenderWindow &window, sf::Texture &texture) {
     // Création du sprite
     sf::Sprite sprite;
     sprite.setTexture(texture);
-    sf::Vector2u w_size{window.getSize()}, t_size{texture.getSize()};
+    sf::Vector2<int> w_size{window.getSize()}, t_size{texture.getSize()};
     sf::IntRect rect_sprite(
                 (t_size.x - w_size.x)/2,
                 (t_size.y - w_size.y)/2,

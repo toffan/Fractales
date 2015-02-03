@@ -1,10 +1,11 @@
 #ifndef CLO_H_INCLUDED
 #define CLO_H_INCLUDED
 
+#include <SFML/System/Vector2.hpp> //sf::Vector2
 #include <sstream> //std::stringstream
+#include <complex> //std::complex
 
-#include "maths.hpp"
-
+using calc_t = double;
 
 class CLO{
 
@@ -23,16 +24,16 @@ public:
     std::complex<calc_t> get_julia_cst() const {
         return _julia_cst;
     }
-    Vect2<std::size_t> get_window_size() const {
+    sf::Vector2<std::size_t> get_window_size() const {
         return _window_size;
     }
-    Vect2<std::size_t> get_texture_size() const {
+    sf::Vector2<std::size_t> get_texture_size() const {
         return _texture_size;
     }
-    Vect2<calc_t> get_plan_size() const {
+    sf::Vector2<calc_t> get_plan_size() const {
         return _plan_size;
     }
-    Vect2<calc_t> get_plan_center() const {
+    sf::Vector2<calc_t> get_plan_center() const {
         return _plan_center;
     }
 
@@ -45,30 +46,30 @@ public:
 
     static constexpr std::complex<calc_t> JULIA_CST_DEF{-0.8, 0.2};
 
-    static const Vect2<std::size_t> WINDOW_SIZE_DEF;
-    static const Vect2<std::size_t> TEXTURE_SIZE_DEF;
-    static const Vect2<calc_t> PLAN_SIZE_DEF;
-    static const Vect2<calc_t> PLAN_CENTER_DEF;
+    static const sf::Vector2<std::size_t> WINDOW_SIZE_DEF;
+    static const sf::Vector2<std::size_t> TEXTURE_SIZE_DEF;
+    static const sf::Vector2<calc_t> PLAN_SIZE_DEF;
+    static const sf::Vector2<calc_t> PLAN_CENTER_DEF;
 
 protected:
 
     //Attributs
     unsigned int _options;
     std::complex<calc_t> _julia_cst;
-    Vect2<std::size_t> _window_size;
-    Vect2<std::size_t> _texture_size;
-    Vect2<calc_t> _plan_size;
-    Vect2<calc_t> _plan_center;
+    sf::Vector2<std::size_t> _window_size;
+    sf::Vector2<std::size_t> _texture_size;
+    sf::Vector2<calc_t> _plan_size;
+    sf::Vector2<calc_t> _plan_center;
 
 
     template <class T>
-    static Vect2<T> str_to_vect(const std::string &pair) {
+    static sf::Vector2<T> str_to_vect(const std::string &pair) {
         std::size_t delim{pair.find_first_of(",;")};
         std::stringstream xss, yss;
         xss.str(pair.substr(0, delim));
         yss.str(pair.substr(delim + 1));
 
-        Vect2<T> result;
+        sf::Vector2<T> result;
         xss >> result.x;
         yss >> result.y;
         return result;

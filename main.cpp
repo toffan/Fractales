@@ -1,7 +1,9 @@
 #include <vector> //std:vector
+#include <iostream> //std::cerr
 
-#include <SFML/Graphics.hpp> //sf::Image, sf::Texture
-#include <SFML/Window.hpp> //sf::RenderWindow, sf::VideoMode
+#include <SFML/Graphics/Image.hpp> //sf::Image
+#include <SFML/Graphics/Texture.hpp> //sf::Texture
+#include <SFML/Graphics/RenderWindow.hpp> //sf::RenderWindow, sf::VideoMode
 
 #include "maths.hpp"
 #include "clo.hpp"
@@ -10,7 +12,7 @@
 const std::string WINDOW_TITLE = "Fractale de Julia";
 const std::size_t NB_COLORS = 256;
 
-int main(int argc, char** argv) {
+int main(int argc, char **argv) {
     try {
         // Définitions les couleurs
         std::vector<sf::Color> colors_table(NB_COLORS);
