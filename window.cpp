@@ -1,4 +1,4 @@
-#include "window.h"
+#include "window.hpp"
 
 void manage_window(sf::RenderWindow &window, sf::Texture &texture) {
     // Création du sprite

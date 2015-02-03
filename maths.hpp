@@ -5,7 +5,7 @@
 
 #include <SFML/Graphics.hpp> //sf::Image
 
-#include "vect2.h"
+#include "vect2.hpp"
 
 using calc_t = double;
 

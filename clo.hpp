@@ -4,7 +4,7 @@
 #include <stdexcept> //std::invalid_argument
 #include <sstream> //std::stringstream
 
-#include "maths.h"
+#include "maths.hpp"
 
 
 class CLO{

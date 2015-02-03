@@ -1,4 +1,4 @@
-#include "clo.h"
+#include "clo.hpp"
 
 const std::uint32_t CLO::JULIA_CST{1};
 const std::uint32_t CLO::WINDOW_SIZE{2};

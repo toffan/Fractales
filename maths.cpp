@@ -1,4 +1,4 @@
-#include "maths.h"
+#include "maths.hpp"
 
 
 std::size_t algo_color(

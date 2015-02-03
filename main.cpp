@@ -3,9 +3,9 @@
 #include <SFML/Graphics.hpp> //sf::Image, sf::Texture
 #include <SFML/Window.hpp> //sf::RenderWindow, sf::VideoMode
 
-#include "maths.h"
-#include "clo.h"
-#include "window.h"
+#include "maths.hpp"
+#include "clo.hpp"
+#include "window.hpp"
 
 const std::string WINDOW_TITLE = "Fractale de Julia";
 const std::size_t NB_COLORS = 256;
