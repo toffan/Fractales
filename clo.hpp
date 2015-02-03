@@ -1,7 +1,6 @@
 #ifndef CLO_H_INCLUDED
 #define CLO_H_INCLUDED
 
-#include <stdexcept> //std::invalid_argument
 #include <sstream> //std::stringstream
 
 #include "maths.hpp"
@@ -9,17 +8,16 @@
 
 class CLO{
 
-public :
+public:
 
-    //Constructeur - Destructeur
+    //Constructeur
     CLO(int argc, char **argv);
-    ~CLO() {}
 
     // Getters
-    bool flag(const std::uint32_t f) const {
+    bool flag(const unsigned int f) const {
         return (_options & f) != 0;
     }
-    std::uint32_t get_options() const {
+    unsigned int get_options() const {
         return _options;
     }
     std::complex<calc_t> get_julia_cst() const {
@@ -38,12 +36,12 @@ public :
         return _plan_center;
     }
 
-    static constexpr std::uint32_t JULIA_CST{1};
-    static constexpr std::uint32_t WINDOW_SIZE{2};
-    static constexpr std::uint32_t TEXTURE_SIZE{4};
-    static constexpr std::uint32_t PLAN_SIZE{8};
-    static constexpr std::uint32_t PLAN_CENTER{16};
-    static constexpr std::uint32_t HELP{32};
+    static constexpr unsigned int JULIA_CST{1};
+    static constexpr unsigned int WINDOW_SIZE{2};
+    static constexpr unsigned int TEXTURE_SIZE{4};
+    static constexpr unsigned int PLAN_SIZE{8};
+    static constexpr unsigned int PLAN_CENTER{16};
+    static constexpr unsigned int HELP{32};
 
     static constexpr std::complex<calc_t> JULIA_CST_DEF{-0.8, 0.2};
 
@@ -52,15 +50,16 @@ public :
     static const Vect2<calc_t> PLAN_SIZE_DEF;
     static const Vect2<calc_t> PLAN_CENTER_DEF;
 
-protected :
+protected:
 
     //Attributs
-    std::uint32_t _options;
+    unsigned int _options;
     std::complex<calc_t> _julia_cst;
     Vect2<std::size_t> _window_size;
     Vect2<std::size_t> _texture_size;
     Vect2<calc_t> _plan_size;
     Vect2<calc_t> _plan_center;
+
 
     template <class T>
     static Vect2<T> str_to_vect(const std::string &pair) {
