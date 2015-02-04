@@ -7,6 +7,9 @@
 #include <SFML/System/Vector2.hpp> //sf::Vector2
 
 
+std::vector<sf::Color> create_colors(
+        const std::size_t nb_colors);
+
 template<class T>
 std::size_t algo_color(
         std::complex<T> z,
@@ -25,6 +28,19 @@ void generate_fractal(
         const std::vector<sf::Color> &colors_table,
         const std::complex<T> jula_cst);
 
+
+
+std::vector<sf::Color> create_colors(
+        const std::size_t nb_colors) {
+    std::vector<sf::Color> table(nb_colors);
+    for(std::size_t i{0}; i<nb_colors; ++i) {
+        table[i].r = i;
+        table[i].g = 0;
+        table[i].b = 0;
+        table[i].a = 255;
+    }
+    return table;
+}
 
 
 template<class T>

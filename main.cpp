@@ -9,19 +9,15 @@
 #include "clo.hpp"
 #include "window.hpp"
 
-const std::string WINDOW_TITLE = "Fractale de Julia";
-const std::size_t NB_COLORS = 256;
+
+const std::string WINDOW_TITLE{"Fractale de Julia"};
+constexpr std::size_t NB_COLORS{256};
+
 
 int main(int argc, char **argv) {
     try {
         // Définitions les couleurs
-        std::vector<sf::Color> colors_table(NB_COLORS);
-        for(std::size_t i{0}; i<colors_table.size(); ++i) {
-            colors_table[i].r = 0;
-            colors_table[i].g = i;
-            colors_table[i].b = i;
-            colors_table[i].a = 255;
-        }
+        std::vector<sf::Color> colors_table(create_colors(NB_COLORS));
 
         // Récupération des options
         CLO clo(argc, argv);
@@ -60,3 +56,5 @@ int main(int argc, char **argv) {
 
     return EXIT_SUCCESS;
 }
+
+
