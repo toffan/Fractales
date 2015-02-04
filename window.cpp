@@ -6,25 +6,27 @@
 #include <SFML/Window/Mouse.hpp> //sf::Mouse
 
 void manage_window(sf::RenderWindow &window, sf::Texture &texture) {
+    sf::Rect<int> sprite_rect {
+            sf::Vector2<int>(texture.getSize() - window.getSize()) / 2,
+            sf::Vector2<int>(window.getSize())};
+    const std::tuple<int, int> limits_left {
+            0, texture.getSize().x - window.getSize().x};
+    const std::tuple<int, int> limits_top {
+            0, texture.getSize().y - window.getSize().y}; 
+
     // Création du sprite
     sf::Sprite sprite;
     sprite.setTexture(texture);
-    sf::Vector2<int> w_size{window.getSize()}, t_size{texture.getSize()};
-    sf::Rect<int> rect_sprite(
-            (t_size.x - w_size.x)/2,
-            (t_size.y - w_size.y)/2,
-            (t_size.x + w_size.x)/2,
-            (t_size.y + w_size.y)/2);
+
+    sf::Event event;
+    sf::Vector2<int> mouse_prev_pos;
+    sf::Vector2<int> mouse_dplt;
+
 
     window.setFramerateLimit(FPS_MAX);
 
-    sf::Event event;
-    sf::Vector2<int> mouse_prev_pos, mouse_dplt;
-
-    int right_lim{t_size.x - w_size.x}, bottom_lim{t_size.y - w_size.y}; 
-
     while(window.isOpen()){
-        sprite.setTextureRect(rect_sprite);
+        sprite.setTextureRect(sprite_rect);
 
         window.clear();
         window.draw(sprite);
@@ -36,24 +38,12 @@ void manage_window(sf::RenderWindow &window, sf::Texture &texture) {
                     && event.mouseButton.button == sf::Mouse::Left) {
                 mouse_prev_pos = sf::Mouse::getPosition(window);
                 while (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-                    mouse_dplt = sf::Mouse::getPosition(window) - mouse_prev_pos;
-                    rect_sprite.left -= mouse_dplt.x;
-                    rect_sprite.top -= mouse_dplt.y;
-                    if(rect_sprite.left <= 0) {
-                        rect_sprite.left = 0;
-                    }
-                    else if(rect_sprite.left >= right_lim) {
-                        rect_sprite.left = right_lim;
-                    }
+                    mouse_dplt = sf::Mouse::getPosition(window) - mouse_prev_pos; 
+                    move_rect(sprite_rect, -mouse_dplt,
+                            limits_left, limits_top);
 
-                    if(rect_sprite.top <= 0) {
-                        rect_sprite.top = 0;
-                    }
-                    else if(rect_sprite.top >= bottom_lim) {
-                        rect_sprite.top = bottom_lim;
-                    }
 
-                    sprite.setTextureRect(rect_sprite);
+                    sprite.setTextureRect(sprite_rect);
                     mouse_prev_pos += mouse_dplt;
 
                     window.clear();
@@ -65,5 +55,28 @@ void manage_window(sf::RenderWindow &window, sf::Texture &texture) {
                 window.close();
             }
         }
+    }
+}
+
+
+void move_rect(
+        sf::Rect<int> &rect,
+        const sf::Vector2<int> displacement,
+        const std::tuple<int, int> limits_left,
+        const std::tuple<int, int> limits_top) {
+    rect.left += displacement.x;
+    rect.top += displacement.y;
+    if(rect.left <= std::get<0>(limits_left)) {
+        rect.left = std::get<0>(limits_left);
+    }
+    else if(rect.left >= std::get<1>(limits_left)) {
+        rect.left = std::get<1>(limits_left);
+    }
+
+    if(rect.top <= std::get<0>(limits_top)) {
+        rect.top = std::get<0>(limits_top);
+    }
+    else if(rect.top >= std::get<1>(limits_top)) {
+        rect.top = std::get<1>(limits_top);
     }
 }
