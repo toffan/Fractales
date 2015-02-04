@@ -6,7 +6,9 @@
 #include <SFML/Graphics/RenderWindow.hpp> //sf::RenderWindow
 #include <SFML/Graphics/Texture.hpp> //sf::Texture
 
+
 const unsigned int FPS_MAX{60};
+
 
 void manage_window(
         sf::RenderWindow &window,
@@ -17,4 +19,5 @@ void move_rect(
         const sf::Vector2<int> displacement,
         const std::tuple<int, int> limits_left,
         const std::tuple<int, int> limits_top);
+
 #endif // WINDOW_H_INCLUDED

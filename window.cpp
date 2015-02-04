@@ -1,9 +1,12 @@
 #include "window.hpp"
 
+#include <cassert> //assert
+
 #include <SFML/Graphics/Sprite.hpp> //sf::Sprite
 #include <SFML/Graphics/Rect.hpp> //sf::Rect
 #include <SFML/Window/Event.hpp> //sf::Event
 #include <SFML/Window/Mouse.hpp> //sf::Mouse
+
 
 void manage_window(sf::RenderWindow &window, sf::Texture &texture) {
     sf::Rect<int> sprite_rect {
@@ -11,8 +14,11 @@ void manage_window(sf::RenderWindow &window, sf::Texture &texture) {
             sf::Vector2<int>(window.getSize())};
     const std::tuple<int, int> limits_left {
             0, texture.getSize().x - window.getSize().x};
+    assert(std::get<0>(limits_left) <= std::get<1>(limits_left));
+
     const std::tuple<int, int> limits_top {
             0, texture.getSize().y - window.getSize().y}; 
+    assert(std::get<0>(limits_top) <= std::get<1>(limits_top));
 
     // Création du sprite
     sf::Sprite sprite;
