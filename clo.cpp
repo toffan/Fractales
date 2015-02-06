@@ -17,91 +17,34 @@ CLO::CLO(int argc, char **argv):
     _plan_center{PLAN_CENTER_DEF} {
     std::string option;
 
-    for(int i{1}; i < argc; ++i) {
-        option = argv[i];
+    for(char **it{argv + 1}; it < argv + argc; ++it) {
+        option = *it;
 
         //JULIA_CST
         if(option == "-j") {
-            if(flag(JULIA_CST)) {
-                throw std::invalid_argument(
-                        "Error CLO: option -c found more than once.");
-            }
-            else if(i+1 < argc) {
-                sf::Vector2<calc_t> c(str_to_vect<calc_t>(std::string(argv[++i])));
-                _julia_cst.real(c.x);
-                _julia_cst.imag(c.y);
-            }
-            else{
-                throw std::invalid_argument(
-                        "Error CLO: no value found for option -c.");
-            }
-            _options |= JULIA_CST;
+            _julia_cst = parse_option<std::complex<calc_t>>(
+                    it, JULIA_CST, _options);
         }
-
         //WINDOW_SIZE 
         else if(option == "-w") {
-            if(flag(WINDOW_SIZE)) {
-                throw std::invalid_argument(
-                        "Error CLO: option -w found more than once.");
-            }
-            else if(i+1 < argc) {
-                _window_size = str_to_vect<std::size_t>(std::string(argv[++i]));
-            }
-            else{
-                throw std::invalid_argument(
-                        "Error CLO: no value found for option -w.");
-            }
-            _options |= WINDOW_SIZE;
+            _window_size = parse_option<sf::Vector2<std::size_t>>(
+                    it, WINDOW_SIZE, _options);
         }
-
         //TEXTURE_SIZE 
         else if(option == "-t") {
-            if(flag(TEXTURE_SIZE)) {
-                throw std::invalid_argument(
-                        "Error CLO: option -t found more than once.");
-            }
-            else if(i+1 < argc) {
-                _texture_size = str_to_vect<std::size_t>(std::string(argv[++i]));
-            }
-            else{
-                throw std::invalid_argument(
-                        "Error CLO: no value found for option -t.");
-            }
-            _options |= TEXTURE_SIZE;
+            _texture_size = parse_option<sf::Vector2<std::size_t>>(
+                    it, TEXTURE_SIZE, _options);
         }
-
         //PLAN_SIZE 
         else if(option == "-p") {
-            if(flag(PLAN_SIZE)) {
-                throw std::invalid_argument(
-                        "Error CLO: option -p found more than once.");
-            }
-            else if(i+1 < argc) {
-                _plan_size = str_to_vect<calc_t>(std::string(argv[++i]));
-            }
-            else{
-                throw std::invalid_argument(
-                        "Error CLO: no value found for option -p.");
-            }
-            _options |= PLAN_SIZE;
+            _plan_size = parse_option<sf::Vector2<calc_t>>(
+                    it, PLAN_SIZE, _options);
         }
-
         //PLAN_CENTER 
         else if(option == "-c") {
-            if(flag(PLAN_CENTER)) {
-                throw std::invalid_argument(
-                        "Error CLO: option -c found more than once.");
-            }
-            else if(i+1 < argc) {
-                _plan_center = str_to_vect<calc_t>(std::string(argv[++i]));
-            }
-            else{
-                throw std::invalid_argument(
-                        "Error CLO: no value found for option -c.");
-            }
-            _options |= PLAN_CENTER;
+            _plan_center = parse_option<sf::Vector2<calc_t>>(
+                    it, PLAN_CENTER, _options);
         }
-
         //HELP
         // L'aide n'est pas implémentée pour l'instant
         else if(option == "-h") {
@@ -115,5 +58,4 @@ CLO::CLO(int argc, char **argv):
         }
     }
 }
-
 

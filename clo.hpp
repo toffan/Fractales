@@ -1,13 +1,16 @@
 #ifndef CLO_H_INCLUDED
 #define CLO_H_INCLUDED
 
-#include <SFML/System/Vector2.hpp> //sf::Vector2
 #include <sstream> //std::stringstream
 #include <complex> //std::complex
+#include <stdexcept> //std::invalid_argument
+
+#include <SFML/System/Vector2.hpp> //sf::Vector2
 
 using calc_t = double;
+using namespace std::literals;
 
-class CLO{
+class CLO {
 
 public:
 
@@ -50,7 +53,7 @@ public:
     static const sf::Vector2<std::size_t> TEXTURE_SIZE_DEF;
     static const sf::Vector2<calc_t> PLAN_SIZE_DEF;
     static const sf::Vector2<calc_t> PLAN_CENTER_DEF;
-
+    
 protected:
 
     //Attributs
@@ -61,22 +64,55 @@ protected:
     sf::Vector2<calc_t> _plan_size;
     sf::Vector2<calc_t> _plan_center;
 
+    template<class T>
+    static T parse_option(
+            char **it,
+            unsigned int f,
+            unsigned int &options) {
+        if((f & options) != 0) {
+            throw std::invalid_argument(
+                    "Error CLO: option "s + *it
+                    + " found more than once."s);
+        }
+        else if(std::string(*(++it)) == "\0") {
+            throw std::invalid_argument(
+                    "Error CLO: no value found for option "s + *(--it) + "."s);
+        }
+        else {
+            options |= f;
 
-    template <class T>
-    static sf::Vector2<T> str_to_vect(const std::string &pair) {
-        sf::Vector2<T> result;
-        std::size_t delim{pair.find_first_of(",;")};
-        std::stringstream ss;
-        
-        ss.str(pair.substr(0, delim));
-        ss >> result.x;
-
-        ss.clear();
-        ss.str(pair.substr(delim + 1));
-        ss >> result.y;
-
-        return result;
+            T result;
+            std::stringstream ss;
+            ss.str(*it);
+            ss >> result;
+            return result;
+        }
     }
 };
+
+
+template <class T>
+std::istream& operator>>(std::istream &is, sf::Vector2<T>& vect) {
+    char trash;
+    is >> trash;
+    if(trash != '(') {
+        throw std::invalid_argument(
+                "Error CLO: un vecteur doit être sous la forme (a,b).");
+    }
+
+    is >> vect.x >> trash;
+    if(trash != ',') {
+        throw std::invalid_argument(
+                "Error CLO: un vecteur doit être sous la forme (a,b).");
+    }
+    is >> vect.y >> trash;
+
+    if(trash != ')') {
+        throw std::invalid_argument(
+                "Error CLO: un vecteur doit être sous la forme (a,b).");
+    }
+    
+    return is;
+}
 
 #endif // CLO_H_INCLUDED
