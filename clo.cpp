@@ -8,13 +8,27 @@ const sf::Vector2<std::size_t> CLO::TEXTURE_SIZE_DEF{2560, 1440};
 const sf::Vector2<calc_t> CLO::PLAN_SIZE_DEF{2.4, 2.4};
 const sf::Vector2<calc_t> CLO::PLAN_CENTER_DEF{0, 0};
 
-CLO::CLO(int argc, char **argv):
-    _options{0},
+CLO::CLO()
+:   _options{0},
+    _julia_cst{JULIA_CST_DEF},
+    _window_size{WINDOW_SIZE_DEF},
+    _texture_size{TEXTURE_SIZE_DEF},
+    _plan_size{PLAN_SIZE_DEF},
+    _plan_center{PLAN_CENTER_DEF} {}
+
+
+CLO::CLO(int argc, char **argv)
+:   _options{0},
     _julia_cst{JULIA_CST_DEF},
     _window_size{WINDOW_SIZE_DEF},
     _texture_size{TEXTURE_SIZE_DEF},
     _plan_size{PLAN_SIZE_DEF},
     _plan_center{PLAN_CENTER_DEF} {
+    parse(argc, argv);
+}
+
+
+void CLO::parse(int argc, char **argv) {
     std::string option;
 
     for(char **it{argv + 1}; it < argv + argc; ++it) {

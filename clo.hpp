@@ -10,12 +10,16 @@
 using calc_t = double;
 using namespace std::literals;
 
+
 class CLO {
 
 public:
 
     //Constructeur
+    CLO();
     CLO(int argc, char **argv);
+
+    void parse(int argc, char **argv);
 
     // Getters
     bool flag(const unsigned int f) const {
